@@ -13,6 +13,17 @@ Real-time UAE license plate detection benchmark using RT-DETR with YOLOv8 baseli
 - Training curves and evaluation results
 - COCO + YOLO annotations
 
+## Results
+
+| Metric | Value |
+|--------|-------|
+| Precision | 99.11% |
+| Recall | 99.14% |
+| F1 Score | 99.12% |
+| mAP@50 | 99.49% |
+| mAP@50-95 | 86.07% |
+| Speed | 2.30 ms/image (~435 FPS) |
+
 ## Sample Predictions
 
 ![Sample Predictions](figures/sample_predictions_good.jpeg)
@@ -24,6 +35,33 @@ Real-time UAE license plate detection benchmark using RT-DETR with YOLOv8 baseli
 ## Confusion Matrix
 
 ![Confusion Matrix](figures/confusion_matrix.jpeg)
+
+## Pipeline
+
+Dataset
+↓
+
+Preprocessing
+
+↓
+
+Data Augmentation
+
+↓
+
+RT-DETR Training
+
+↓
+
+Evaluation
+
+↓
+
+Benchmarking
+
+↓
+
+Visualization
 
 
 ## 1. Project purpose
