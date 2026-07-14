@@ -157,7 +157,7 @@ YOLO, RT-DETR, and RF-DETR are proposals only. No model training or model implem
 |   |-- data.yaml
 |   `-- labels/{train,val,test}/*.txt
 |-- notebooks/01_data_preprocessing.ipynb
-|-- reports/
+|-- results/
 |   |-- class_mapping.csv
 |   |-- dataset_manifest.csv
 |   |-- dataset_stats.csv
