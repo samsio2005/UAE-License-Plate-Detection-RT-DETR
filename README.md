@@ -1,4 +1,30 @@
-# UAE-License-Plate-Detection-Preprocessed
+# UAE License Plate Detection using RT-DETR
+
+Real-time UAE license plate detection benchmark using RT-DETR with YOLOv8 baseline comparison.
+
+---
+
+## Highlights
+
+- RT-DETR real-time object detection
+- YOLOv8 baseline comparison
+- UAE License Plate dataset
+- Complete preprocessing pipeline
+- Training curves and evaluation results
+- COCO + YOLO annotations
+
+## Sample Predictions
+
+![Sample Predictions](figures/sample_predictions_good.jpeg)
+
+## Training Curves
+
+![Training Curves](figures/training_curves.jpeg)
+
+## Confusion Matrix
+
+![Confusion Matrix](figures/confusion_matrix.jpeg)
+
 
 ## 1. Project purpose
 
