@@ -39,10 +39,19 @@
     "RF-DETR"
   ],
   "known_limitations": [
-    "Images are intentionally omitted from the GitHub source repository and distributed separately.",
+    "Dataset image archives and large trained checkpoints are distributed separately.",
     "The exact historical reason for five frozen-release omissions is unavailable.",
     "The local raw export metadata used a different Roboflow workspace URL from the required canonical attribution URL.",
-    "The augmentation policy is a preprocessing handoff and is not claimed as integrated into model training.",
-    "The repository proposes YOLO, RT-DETR and RF-DETR but does not claim those models are implemented here."
+    "Augmentation is applied at training time; images stored in the frozen dataset are not permanently augmented.",
+    "Detector speed values were produced by different frameworks and timing procedures and are not a controlled hardware comparison.",
+    "The final pipeline examples are qualitative demonstrations; a complete end-to-end test-set accuracy was not calculated."
+  ],
+  "repository_scope": "The dataset release metadata describes the frozen one-class detector dataset. The same repository also contains implemented and evaluated YOLOv8n, RT-DETR-L, RF-DETR Medium, OCR v1/v2, emirate-classification, and end-to-end demo code.",
+  "implemented_models": [
+    "YOLOv8n",
+    "RT-DETR-L",
+    "RF-DETR Medium",
+    "FastPlateOCR CCT-S",
+    "ResNet18 emirate classifier"
   ]
 }

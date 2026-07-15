@@ -407,7 +407,7 @@ def write_release(package_root: Path, manifest_path: Path, coco_paths: dict[str,
             "The exact historical reason for five frozen-release omissions is unavailable.",
             "The local raw export metadata used a different Roboflow workspace URL from the required canonical attribution URL.",
             "The augmentation policy is a preprocessing handoff and is not claimed as integrated into model training.",
-            "The repository proposes YOLO, RT-DETR and RF-DETR but does not claim those models are implemented here.",
+            "The frozen dataset metadata is model-independent; the repository also includes separate model training and evaluation code.",
         ],
     }
     path = package_root / "dataset_release.json"
@@ -460,12 +460,12 @@ def _source_index(source: dict[str, object]) -> dict[str, list[tuple[Path, Path]
 def _boxes_equal(left: list, right: list) -> bool:
     if len(left) != len(right):
         return False
-    for a, b in zip(left, right, strict=True):
+    for a, b in zip(left, right):
         if a.class_id != b.class_id:
             return False
         values_a = (a.x_center, a.y_center, a.width, a.height)
         values_b = (b.x_center, b.y_center, b.width, b.height)
-        if any(not math.isclose(x, y, rel_tol=0.0, abs_tol=BOUND_TOLERANCE) for x, y in zip(values_a, values_b, strict=True)):
+        if any(not math.isclose(x, y, rel_tol=0.0, abs_tol=BOUND_TOLERANCE) for x, y in zip(values_a, values_b)):
             return False
     return True
 
@@ -518,7 +518,7 @@ def build_from_raw(package_root: Path, dataset_root: Path, source_root: Path, st
             f"0 {box.x_center:.6f} {box.y_center:.6f} {box.width:.6f} {box.height:.6f}"
             for box in raw_target
         ]
-        staged_label.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+        staged_label.write_text("\n".join(lines) + "\n", encoding="utf-8")
         accepted_label = dataset_root / "labels" / split / staged_label.name
         accepted_boxes = load_yolo_labels(accepted_label, allow_empty=False)
         staged_boxes = load_yolo_labels(staged_label, allow_empty=False)
@@ -535,9 +535,9 @@ def build_from_raw(package_root: Path, dataset_root: Path, source_root: Path, st
             raise ValueError(f"COCO dimensions differ from the manifest: {image_name}")
         if len(annotations) != len(staged_boxes):
             raise ValueError(f"COCO box count differs from reconstructed YOLO: {image_name}")
-        for box, annotation in zip(staged_boxes, annotations, strict=True):
+        for box, annotation in zip(staged_boxes, annotations):
             expected = yolo_to_coco_bbox(box, int(row["image_width"]), int(row["image_height"]))
-            if any(abs(float(a) - float(b)) > COCO_PARITY_TOLERANCE_PX for a, b in zip(expected, annotation["bbox"], strict=True)):
+            if any(abs(float(a) - float(b)) > COCO_PARITY_TOLERANCE_PX for a, b in zip(expected, annotation["bbox"])):
                 raise ValueError(f"YOLO-COCO parity differs by more than 0.01 pixel: {image_name}")
         total_boxes += len(staged_boxes)
     if total_boxes != ACCEPTED_COUNTS["total"]["boxes"]:
@@ -545,7 +545,6 @@ def build_from_raw(package_root: Path, dataset_root: Path, source_root: Path, st
     (staging_root / "data.yaml").write_text(
         "train: images/train\nval: images/val\ntest: images/test\nnc: 1\nnames:\n  0: license_plate\n",
         encoding="utf-8",
-        newline="\n",
     )
     for split in SPLITS:
         images = find_image_files(staging_root / "images" / split)

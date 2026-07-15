@@ -239,7 +239,7 @@ print("Notebook finished with repository validation PASS.")"""
 def main() -> None:
     package_root = Path(__file__).resolve().parents[1]
     output = package_root / "notebooks" / "01_data_preprocessing.ipynb"
-    output.write_text(json.dumps(build(), indent=1, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
+    output.write_text(json.dumps(build(), indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"Wrote {output.relative_to(package_root)}")
 
 

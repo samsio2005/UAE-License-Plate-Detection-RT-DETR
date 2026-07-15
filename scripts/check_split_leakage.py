@@ -130,7 +130,7 @@ def _perceptual_rows(records: list[dict[str, object]], threshold: int) -> list[d
     workers = min(32, max(4, (os.cpu_count() or 4) * 2))
     with ThreadPoolExecutor(max_workers=workers) as executor:
         hashes = executor.map(lambda item: difference_hash(Path(item["path"])), records)
-        for record, digest in zip(records, hashes, strict=True):
+        for record, digest in zip(records, hashes):
             record["dhash"] = digest
     by_split = {split: [record for record in records if record["split"] == split] for split in SPLITS}
     rows: list[dict[str, object]] = []
@@ -182,7 +182,7 @@ def run_leakage(
         workers = min(32, max(4, (os.cpu_count() or 4) * 2))
         with ThreadPoolExecutor(max_workers=workers) as executor:
             hashes = executor.map(lambda item: _sha256(Path(item["path"])), records)
-            for record, digest in zip(records, hashes, strict=True):
+            for record, digest in zip(records, hashes):
                 record["sha256"] = digest
     rows = _exact_rows(records, threshold)
     exact_count = len(rows)

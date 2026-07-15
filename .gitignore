@@ -1,16 +1,44 @@
+# Python caches and virtual environments
 __pycache__/
 *.py[cod]
-.ipynb_checkpoints/
+*.pyo
 .venv/
-.env
+venv/
+env/
+
+# OS and editor files
 .DS_Store
 Thumbs.db
-datasets/uae_lp_v2_yolo/images/
+.vscode/
+.idea/
+.ipynb_checkpoints/
+
+# Logs and experiment tracking
+wandb/
+*.log
+*.cache
+
+# Large/generated detector datasets
+raw/
 release_artifacts/
-dist/
+datasets/**/images/
+datasets/UAE_raw_51class/
+datasets/uae_lp_v2_rfdetr_coco/
+datasets/uae_lp_ocr/
+datasets/uae_lp_ocr_v2/
+datasets/uae_lp_emirate/
+
+# Generated training runs and large exported checkpoints
 runs/
-weights/
-*.pt
 *.pth
+*.keras
 *.onnx
 *.engine
+
+# Keep the committed lightweight YOLO baseline checkpoint
+!weights/
+!weights/best.pt
+
+# Keep final evidence and machine-readable results
+!reports/
+!results/

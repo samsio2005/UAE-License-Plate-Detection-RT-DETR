@@ -1,0 +1,17 @@
+{
+  "model": "YOLOv8n",
+  "checkpoint": "weights/best.pt",
+  "split": "test",
+  "test_images": 1432,
+  "test_plate_instances": 1511,
+  "precision": 0.9911,
+  "recall": 0.9914,
+  "f1_score": 0.9912,
+  "map_50": 0.9949,
+  "map_50_95": 0.8607,
+  "map_75": null,
+  "latency_ms_per_image": 2.3,
+  "approximate_fps": 435.6,
+  "source": "Final metrics supplied by the YOLOv8n teammate.",
+  "comparability_note": "Speed was measured using a different framework and timing protocol from RF-DETR and RT-DETR-L, so it is not a controlled hardware comparison."
+}

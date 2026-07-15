@@ -1,8 +1,21 @@
-matplotlib==3.11.0
-numpy==2.4.6
-opencv-python==4.13.0.92
-Pillow==12.2.0
-PyYAML==6.0.3
-ipykernel==7.2.0
-nbclient==0.10.2
-nbformat==5.10.4
+# Cross-platform project dependencies.
+# Install a platform-appropriate PyTorch build first when necessary:
+# https://pytorch.org/get-started/locally/
+
+albumentations>=2.0,<3
+fast-plate-ocr[train]>=1.1,<2
+keras>=3.10,<4
+matplotlib>=3.8,<4
+numpy>=1.26,<3
+opencv-python>=4.10,<5
+pandas>=2.2,<3
+Pillow>=10,<13
+pycocotools>=2.0.7,<3
+PyYAML>=6,<7
+rfdetr>=1.8,<2
+scikit-learn>=1.4,<2
+tensorboard>=2.17,<3
+torch>=2.5,<3
+torchvision>=0.20,<1
+tqdm>=4.66,<5
+ultralytics>=8.3,<9

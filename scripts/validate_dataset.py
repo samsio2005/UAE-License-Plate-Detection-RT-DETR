@@ -82,6 +82,7 @@ FIGURES = {
     "augmentation_preview.jpg",
 }
 TEXT_SUFFIXES = {".py", ".md", ".json", ".yaml", ".yml", ".csv", ".txt", ".ipynb"}
+ALLOWED_TRACKED_WEIGHTS = {"weights/best.pt"}
 
 
 def parse_args() -> argparse.Namespace:
@@ -163,7 +164,7 @@ def _validate_repository_files(package_root: Path, tracked: list[str]) -> list[d
             hygiene_errors.append(f"Tracked virtual environment file: {relative}")
         if lower.startswith("datasets/uae_lp_v2_yolo/images/"):
             hygiene_errors.append(f"Tracked dataset image: {relative}")
-        if lower.endswith((".pt", ".pth", ".onnx", ".engine")):
+        if lower.endswith((".pt", ".pth", ".keras", ".onnx", ".engine")) and relative not in ALLOWED_TRACKED_WEIGHTS:
             hygiene_errors.append(f"Tracked model weight: {relative}")
     results.append(_item("Repository packaging hygiene", f"tracked_files={len(tracked)}, issues={len(hygiene_errors)}", hygiene_errors))
 
@@ -404,7 +405,7 @@ def _validate_coco(
                     category_errors.append(f"{path.name}: category ID differs for annotation {annotation.get('id')}")
                 if index < len(boxes):
                     expected = yolo_to_coco_bbox(boxes[index], width, height)
-                    if any(abs(left - right) > COCO_PARITY_TOLERANCE_PX for left, right in zip(expected, (x, y, box_width, box_height), strict=True)):
+                    if any(abs(left - right) > COCO_PARITY_TOLERANCE_PX for left, right in zip(expected, (x, y, box_width, box_height))):
                         parity_errors.append(f"{path.name}: bbox parity differs for {file_name} row {index + 1}")
         expected_names = {name for current_split, name in manifest_by_image if current_split == split}
         if observed_names != expected_names:
@@ -702,7 +703,7 @@ def _write_report(
             "",
         ]
     )
-    (package_root / "reports" / "validation_report.md").write_text("\n".join(lines), encoding="utf-8", newline="\n")
+    (package_root / "reports" / "validation_report.md").write_text("\n".join(lines), encoding="utf-8")
 
 
 def run_validation(

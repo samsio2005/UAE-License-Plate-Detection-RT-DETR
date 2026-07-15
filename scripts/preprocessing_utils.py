@@ -290,7 +290,7 @@ def read_csv(path: Path) -> list[dict[str, str]]:
 
 def write_json(path: Path, value: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
+    path.write_text(json.dumps(value, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
 def summarize(values: Sequence[float | int]) -> dict[str, float | str]:
